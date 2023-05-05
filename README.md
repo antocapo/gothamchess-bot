@@ -1,2 +1,2 @@
 # gothamchess bot
- neural network mimicking plying style of a player
+ neural network mimicking the playing style of a player(in this case GothamChess)
