@@ -1,0 +1,269 @@
+Bug: trying to remove datasets, which contain a specific pattern in a column. To find these patterns I'm using re. The problem is that it doesn't find any matches when I apply it in the dataframe but it works with normal strings
+Solution: Problem was that the dataframe added a space inbetween the "{" and "["
+
+#remove records using regex. Tutorial https://www.youtube.com/watch?v=rhzKDrUiJVk
+#pattern works when it is written on a single line but doesn't find any matches if I format the  code into multiple lines. tested on console with game_notaion1 variable and on https://regexr.com/  
+pattern = r'(^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sh5|^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sNf6|^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sc5|^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa6|^1\.\sd4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa6|^1\.\sNf3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa6|^1\.\sNf3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sh5|^1\.\sNf3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sc5|^1\.\sg3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sf6|^1\.\sg3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sc5|^1\.\sg3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa6|^1\.\se3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa5|^1\.\se3\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\sa6)'
+
+#game notation = df['Mainline Moves]
+game_notation1 = "1. e4 {[%clk 0:03:00]} 1... e5 {[%clk 0:02:54.6]} 2. d4 {[%clk 0:02:57.6]} 2... Bg7 {[%clk 0:02:54.2]} 3. g3 {[%clk 0:02:56.5]} 3... d6 {[%clk 0:02:52.9]} 4. Bg2 {[%clk 0:02:47.6]} 4... Nc6 {[%clk 0:02:51.3]} 5. Nc3 {[%clk 0:02:43.6]} 5... Bd7 {[%clk 0:02:50]} 6. e4 {[%clk 0:02:41.2]} 6... Qc8 {[%clk 0:02:48.2]} 7. h4 {[%clk 0:02:39.7]} 7... Bg4 {[%clk 0:02:45.6]} 8. Be3 {[%clk 0:02:38.4]} 8... e5 {[%clk 0:02:40.4]} 9. d5 {[%clk 0:02:25.2]} 9... Nce7 {[%clk 0:02:32.5]} 10. Qd3 {[%clk 0:02:19.5]} 10... a6 {[%clk 0:02:29.2]} 11. Nd2 {[%clk 0:01:58]} 11... Bd7 {[%clk 0:02:25.8]} 12. h5 {[%clk 0:01:53.1]} 12... f5 {[%clk 0:02:19.6]} 13. O-O-O {[%clk 0:01:41.5]} 13... Nf6 {[%clk 0:02:11.4]} 14. h6 {[%clk 0:01:34.8]} 14... Bf8 {[%clk 0:02:09.3]} 15. Bg5 {[%clk 0:01:33.7]} 15... Neg8 {[%clk 0:02:06.7]} 16. f4 {[%clk 0:01:29.4]} 16... Ng4 {[%clk 0:02:02.9]} 17. Qe2 {[%clk 0:01:18.5]} 17... Be7 {[%clk 0:01:59.6]} 18. Bxe7 {[%clk 0:01:10.1]} 18... Nxe7 {[%clk 0:01:58.5]} 19. fxe5 {[%clk 0:01:09.7]} 19... Nxe5 {[%clk 0:01:56.1]} 20. Nc4 {[%clk 0:00:55.9]} 20... Nxc4 {[%clk 0:01:39]} 21. Qxc4 {[%clk 0:00:55.8]} 21... O-O {[%clk 0:01:32.6]} 22. Qd4 {[%clk 0:00:52.5]} 22... Rf7 {[%clk 0:01:30.8]} 23. Rde1 {[%clk 0:00:46.7]} 23... Qf8 {[%clk 0:01:22.8]} 24. e5 {[%clk 0:00:43.3]} 24... dxe5 {[%clk 0:01:22.2]} 25. Rxe5 {[%clk 0:00:43.2]} 25... Re8 {[%clk 0:01:19.5]} 26. d6 {[%clk 0:00:28.6]} 26... Nc6 {[%clk 0:01:17.1]} 27. Rxe8 {[%clk 0:00:22]} 27... Qxe8 {[%clk 0:01:00.5]} 28. Qd2 {[%clk 0:00:19.6]} 28... cxd6 {[%clk 0:00:58.4]} 29. Qxd6 {[%clk 0:00:19]} 29... Qe6 {[%clk 0:00:49.8]} 30. Qc5 {[%clk 0:00:18]} 30... Ne7 {[%clk 0:00:42.9]} 31. Nd5 {[%clk 0:00:17.4]} 31... Bc6 {[%clk 0:00:40.2]} 32. Rd1 {[%clk 0:00:16.2]} 32... Nxd5 {[%clk 0:00:35.1]} 33. Bxd5 {[%clk 0:00:16.1]} 33... Bxd5 {[%clk 0:00:33.9]} 34. Rxd5 {[%clk 0:00:16]} 34... Qe1+ {[%clk 0:00:29.5]} 35. Rd1 {[%clk 0:00:15]} 35... Qe7 {[%clk 0:00:28.6]} 36. Qc8+ {[%clk 0:00:13.3]} 36... Rf8 {[%clk 0:00:27.7]} 37. Qc3 {[%clk 0:00:12.6]} 37... Qg5+ {[%clk 0:00:26.8]} 38. Kb1 {[%clk 0:00:11.9]} 38... Qf6 {[%clk 0:00:22.9]} 39. Qc4+ {[%clk 0:00:10.9]} 39... Qf7 {[%clk 0:00:22.3]} 40. Qc3 {[%clk 0:00:09.9]} 40... f4 {[%clk 0:00:21.8]} 41. gxf4 {[%clk 0:00:09.1]} 41... Qf6 {[%clk 0:00:21.3]} 42. Qc4+ {[%clk 0:00:08.3]} 42... Qf7 {[%clk 0:00:20.4]} 43. Qc3 {[%clk 0:00:07.9]} 43... b5 {[%clk 0:00:18.8]} 44. a3 {[%clk 0:00:07.2]} 44... Re8 {[%clk 0:00:18]} 45. b3 {[%clk 0:00:05.6]} 45... a5 {[%clk 0:00:17]} 46. Rd6 {[%clk 0:00:05]} 46... b4 {[%clk 0:00:16.1]} 47. axb4 {[%clk 0:00:04.9]} 47... axb4 {[%clk 0:00:15.8]} 48. Qd4 {[%clk 0:00:04.5]} 48... Re1+ {[%clk 0:00:14.3]} 49. Kb2 {[%clk 0:00:04.1]} 49... Re8 {[%clk 0:00:13.8]} 50. Rd7 {[%clk 0:00:03.5]} 50... Re7 {[%clk 0:00:12.4]} 51. Rd8+ {[%clk 0:00:02.4]} 51... Qf8 {[%clk 0:00:11.8]} 52. Rxf8+ {[%clk 0:00:01.1]} 52... Kxf8 {[%clk 0:00:11.7]} 53. Qh8+ {[%clk 0:00:00.8]} 53... Kf7 {[%clk 0:00:11.6]} 54. Qxh7+ {[%clk 0:00:00.7]} 54... Ke6 {[%clk 0:00:11.5]} 55. Qxg6+ {[%clk 0:00:00.2]} 55... Kd7 {[%clk 0:00:11.4]} 0-1"
+
+pattern_e4_e5 = r'^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\se5'
+
+df.at[0, 'Mainline Moves'] = '1. e4 { [%clk 0:03:00] } 1... e5 { [%clk 0:03:00] } 2. g3 { [%clk 0:02:59.2] } 2... g5 { [%clk 0:02:59.3] } 3. Bg2 { [%clk 0:02:58.7] } ' #updates value for column from the 1 row to test 1. e4 e5
+
+match = re.match(pattern, df['Mainline Moves'].iloc[0]) #Output: Pattern does not match game notation
+#match = re.match(pattern, game_notation1) #Output: Pattern matches game notation
+
+#testing with simpler e4 e5 pattern
+#match = re.match(pattern_e4_e5, df['Mainline Moves'].iloc[0]) #Output: Pattern does not match game notation
+#match = re.match(pattern_e4_e5, game_notation1) #Output: Pattern matches game notation
+
+if match:
+    print("Pattern matches game notation")
+else:
+    print("Pattern does not match game notation")
+
+print(df['Mainline Moves'].iloc[0]) #1. e4 { [%clk 0:03:00] } 1... e5 { [%clk 0:03:00] } 2. g3 { [%clk 0:02:59.2] } 2... g5 { [%clk 0:02:59.3] } 3. Bg2 { [%clk 0:02:58.7] } 
+
+
+df['Mainline Moves'].str.contains(r'^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\se5').unique() #array([False])
+df['Mainline Moves'].str.contains(r'^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\se5', regex=True).value_counts()# False    24489 (no true)
+
+df_new['Mainline Moves'] = df['Mainline Moves'].str.replace(r'^1\.\se4\s({\[%clk \d{1,2}:\d{1,2}:\d{1,2}\.?\d{1,2}?]})\s1\.\.\.\se5', 'replaced')
+df_new['Mainline Moves'].str.contains('replaced').value_counts() # False    24489 (no true)
+
+
+
+
+
+
+
+Deep Learning theory
+
+Deep LEArning
+
+Forward, backward look at notes
+
+backpropagation: if prediction is wrong we get a loss function and propagate the way back to ajust the weights so the record is true (adjust to better preict)
+so that loss is reduced
+
+Terms:
+
+Activation Function: 
+Introduce Non-Linearity into the network
+Decides whether a neuron can contribue to the next layer 
+How to decide if neuron can activate or not? (different activation functions)
+Binary Classifaction: Sigmoid
+If you're unsure: ReLU (or Leaky ReLU)
+
+ReLU vs Leaky ReLU
+Dying ReLU Problem/Vanishing gradient problem (since gradient will always be 0 and weights can therefore not adapt) Solution: Leaky relu
+You might enconter it whenduring the training the loss doesn't decrease significantly over many iterations or the accuracy does't improve even though the learning rate is reasonable.
+
+-> Start with ReLU and if you encounter vanishing gradient try Leaky ReLU
+
+
+Loss Functions:(how wrong the predicions of the neural network are)
+Quantify the deviation of the predicted output be the neural network to the expected output
+
+different types of loss functions: 
+Regession: Squared Error, Huber Loss
+Binary Classificaion: Binary Cross-Entropy, Hinge Loss
+Multi-Class Classification: Multi-Class Cross-Entropy, Kullback Divergence
+
+
+
+Optimizers:
+Tie together with loss function. Make the model more accurate by updating the weights and biases
+Loss function it's its guide to tell if he is doing good or not(Goal minimize the error)
+
+loss function it's its guide. says if optimizer is doing good or not
+
+Gradient descent:
+Iterative algorithm that starts of a random point on the loss function and trvels down its slope in steps util it reaches the lowest point
+
+use proper learning rate to avoid local minimum(especcialy with many variables like in chess it t
+is easy to get stock in a local minima opposed to a global/absolute minima, but don't make learning rate to high otherwise we won't find the best solution)
+
+-> stochastic gradient descent to achieve
+Adagrad: Sdsptd lesrning rate to individual features. some weights will have different learning rates. ideal for sparse datasets with many input examples missing. Con learning rate tend to get really slow over time
+RMSprop: specialized version of Adagrad (Accumulates gradients in a fixed window)
+
+Adaptive Momement estimatin: uses concept of momentum
+
+-> Easy to get lost in optimihzers: Trial and error will get you there(they all have the same goal of minimizing the loss function
+
+
+Parameters and Hyperparameters
+model parameter: internal variable to the neural network . value can be estimted right from the data. the are not set manually(e.g. weights and biases)
+hyperparam: configuration external to the neural network . value can not be estimated right from the data. if you have to manually specify a parapeter, it's a hyperparameter. There is no clear cut to find the best value(e.g. learning rate, sigma). Trial and error
+
+
+Epochs, Batches, Batch size, Iterations
+only need these if dataset is large
+it'S to break down the dataset into smaller chunks to feed them the neural network one by one
+
+epochs: when the entire dataset is passed orward and backwar through the neural network only once. we use multiple epochs to help our model to generalize better. Too many epochs can cause overfitting. No right answer of how many epochs to use. trial and error
+
+batch and batch sie:we devide large datasets into smaller batches and feed those batches into the neural network
+
+batch size total number of training examples in a batch
+
+iterations: number of batches needed to complete one epoch
+number of batches = number of iterations for one epoch (e.g. 34000 training data, divided into 500 batches =  68 iterations to complete 1 epoch)
+
+
+architectures:
+
+fully connected feed forward
+take in fixed sized input
+returns fixed sized output
+
+can't model every problem today (can't handle sequential data e.g. predicting where the ball will move from a photo alone)
+-> Solution Recurrent neuronal network(sequenial memory. uses a feedback loop in hidden layers)
+e.g predict next letter based on previous letters that were typed
+
+Problem: it only has a short term memory(vanishing gradient problem) 
+Solution(beeing able of learning long term dependencies using gates)
+LSTM-Long short term memory
+update gate
+reset gate
+forget gate
+
+GRNN- GAted RNN
+update gate
+reset gate
+
+
+
+Convolutional neural network
+inspired by neurons in the visual context
+good for processing images, audio, vide
+
+Hidden layers in a CNN consist of:
+Convolutional Layers
+Pooling Layers
+Fully-Connected Layers
+Normalization Layers
+
+typically:
+Input 2D
+Output 1D
+
+allows us to extractvisual features in chunks
+
+Pooling: reduces the number of neurons necessarry in subsequent layers (Max -, Min - Pooling)
+
+Creating a Model:
+1. Gathering data
+picking the right data is key
+make assumptions about the data
+
+size
+ISIS Flower 150
+Gmail Mail: Millions
+Google Translate: Trillions
+
+No one size fits all
+rough estimate: amount of needed data= 10x parameters of model
+Regression: 10 examples per predictor variable
+Image classification: 1000 images per class
+
+Quality: 
+reliability
+How commun are labeling mistakes?
+Are your features noisy? (is it accurat?)
+
+archive.ics.uci.edu
+kaggle.com/datasets
+datasetsearch.reseach.google.com
+
+2. preprocessing the data
+splittig dataset into subset
+train on traiing data
+evaluate on validation data (hyperparameter tuning)
+test on testing data
+Can't split the dataset randomly. all 3 datasets should be similar (split percentatage from each chess opening? and split where there are mates and endgames?)
+
+
+depends on nuber of samples in the data and model being trained
+
+few hyperparameters -> small validation set
+many hyperparameters -> large validation set (maybe even cross validation)
+no hyperparameters -> no validation set needed
+
+formation
+
+missing data(NaN or None) (chess pgn from chess.com should be good)
+
+Imbalenced data: leading to minority and majority class. model will be biased towads majority class anyways so can I let uncommun openings in?
+
+
+feature scaling(normalization, standardization)
+
+3. Train Model
+
+4. Evaluation
+using the validation set
+
+5. optimizng
+hyperparameter tuning
+increase epochs, adjust learning rate
+
+addressing overfitting (if it performs bad on unseen data): getting more data, reducing the models size(underfitting?), weight regularization
+
+
+data augmentation: artificially increase the data
+
+
+
+
+
+
+
+no clear solution on what model, numbers of idden layers etc to use: Solution is to experiment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+installing tensorflow
+
+The error message indicates that the environment is inconsistent and there are some packages that are causing the problem. The packages listed in the error message are not related to TensorFlow, but rather the Anaconda distribution and some other packages that are installed in the environment.
+
+You could try creating a new environment and installing TensorFlow in that environment instead of installing it in the base environment. Here are the steps to create a new environment and install TensorFlow in it:
+
+Open Anaconda prompt or terminal
+
+Create a new environment by typing the following command:
+
+conda create --name tf_env
+
+This will create a new environment called "tf_env". You can replace "tf_env" with any name you want.
+
+Activate the new environment by typing:
+
+conda activate tf_env
+
+Install TensorFlow by typing:
+
+conda install tensorflow
+
+This will install the latest version of TensorFlow in the new environment.
+
+Once the installation is complete, you can use TensorFlow in the new environment.
+
+Note: It's always a good practice to create a new environment for each project you work on to avoid conflicts between packages.

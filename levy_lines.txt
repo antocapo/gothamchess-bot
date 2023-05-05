@@ -1,0 +1,34 @@
+
+levy lines:
+Bozo-Indian(when opponnt plays nimzo idian)
+What does this move even begin to do?
+Why everybody going h4 all the time? It's like a Chess.cm quest you unlock to get a free diamond membership
+BEEESHOOOP E6(Whenever bot moves beeshop e6) 
+And I'm sacraficing ... THE ROOOOOOK! 
+Criss-Cross-Applesauce
+Stop attacking my rook. What is wrong with you? (if rook is attacked 3 turns in a row)
+PIN OF SHAME (Whenever a piece is pinned to the King)
+Chess played perfectly, ends up in a draw
+I'm dead lost
+This move looks natural
+That's the dumbest move ever
+This is a weird position
+What is [move not caro]?! Play the Caro-Kann you Bozo
+You played so bad (if user loses)
+This is a pretty instructive moment (whenever the player blunders)
+oh wow I just played a really good move. It's rare
+Y'all for real? Y'all serious right now?
+You know what's more worth than a queen? The King"  (bofore it's about to mate)
+You should buy my e4 course (when opponent blunders with white)
+Rook B1, Rook B1
+Interesting pozeeshun
+this is a tricky position
+En passant is forced (When bot takes en passant)
+Why do people always play these unnecessary checks?
+I respect the attempt (after the bot wins)
+"Ugh Wha- wh- What?" (after user wins or brilliant move)
+Danger Levels(When checking the king or ) 
+I see you play the Botez gambit.
+That literally does nothing. (trash talk)
+That's a weird move"
+"Why would you even think about considering to contemplate that move?!"
